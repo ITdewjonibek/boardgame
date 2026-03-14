@@ -3,45 +3,175 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tic-Tac-Toe</title>
+  <title>Game Hub - Play Awesome Games</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Tic-Tac-Toe</h1>
+  <!-- Game Hub Menu -->
+  <div id="hub-container" class="hub-container">
+    <header class="hub-header">
+      <h1 class="hub-title">Game Hub</h1>
+      <p class="hub-subtitle">Play awesome games and have fun</p>
+    </header>
 
-    <div class="scoreboard">
-      <div class="score" id="score-x">
-        <span class="player-label x">X</span>
-        <span class="score-value" id="wins-x">0</span>
+    <div class="games-grid" id="games-grid">
+      <div class="game-card" data-game="tictactoe">
+        <div class="game-card-icon">✕</div>
+        <h3>Tic-Tac-Toe</h3>
+        <p>Classic game with AI opponent</p>
       </div>
-      <div class="score draws">
-        <span class="player-label">Draws</span>
-        <span class="score-value" id="draws">0</span>
+
+      <div class="game-card" data-game="memory">
+        <div class="game-card-icon">🎴</div>
+        <h3>Memory Match</h3>
+        <p>Test your memory skills</p>
       </div>
-      <div class="score" id="score-o">
-        <span class="player-label o">O</span>
-        <span class="score-value" id="wins-o">0</span>
+
+      <div class="game-card" data-game="snake">
+        <div class="game-card-icon">🐍</div>
+        <h3>Snake</h3>
+        <p>Eat and grow longer</p>
+      </div>
+
+      <div class="game-card" data-game="2048">
+        <div class="game-card-icon">2048</div>
+        <h3>2048</h3>
+        <p>Combine tiles to reach 2048</p>
+      </div>
+
+      <div class="game-card" data-game="checkers">
+        <div class="game-card-icon">⚫</div>
+        <h3>Checkers</h3>
+        <p>Strategy game with AI</p>
       </div>
     </div>
 
-    <div class="status" id="status">Player X's turn</div>
-
-    <div class="board" id="board">
-      <button class="cell" data-index="0" aria-label="Cell 1"></button>
-      <button class="cell" data-index="1" aria-label="Cell 2"></button>
-      <button class="cell" data-index="2" aria-label="Cell 3"></button>
-      <button class="cell" data-index="3" aria-label="Cell 4"></button>
-      <button class="cell" data-index="4" aria-label="Cell 5"></button>
-      <button class="cell" data-index="5" aria-label="Cell 6"></button>
-      <button class="cell" data-index="6" aria-label="Cell 7"></button>
-      <button class="cell" data-index="7" aria-label="Cell 8"></button>
-      <button class="cell" data-index="8" aria-label="Cell 9"></button>
+    <div class="sound-toggle">
+      <button id="sound-btn" class="sound-btn" title="Toggle sound">
+        <span id="sound-icon">🔊</span>
+      </button>
     </div>
-
-    <button class="restart-btn" id="restart-btn">New Game</button>
   </div>
 
+  <!-- Game Containers -->
+  <div id="game-container" class="game-container" style="display: none;">
+    <button class="back-btn" id="back-btn">← Back to Hub</button>
+
+    <!-- Tic-Tac-Toe Game -->
+    <div id="tictactoe-game" class="game-view" style="display: none;">
+      <div class="game-wrapper">
+        <h1>Tic-Tac-Toe</h1>
+        <div class="game-controls">
+          <label>
+            <input type="radio" name="mode" value="pvp" checked> Player vs Player
+          </label>
+          <label>
+            <input type="radio" name="mode" value="pva"> Player vs AI
+          </label>
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+
+        <div class="scoreboard">
+          <div class="score" id="score-x">
+            <span class="player-label x">X</span>
+            <span class="score-value" id="wins-x">0</span>
+          </div>
+          <div class="score draws">
+            <span class="player-label">Draws</span>
+            <span class="score-value" id="draws">0</span>
+          </div>
+          <div class="score" id="score-o">
+            <span class="player-label o">O</span>
+            <span class="score-value" id="wins-o">0</span>
+          </div>
+        </div>
+
+        <div class="status" id="status">Player X's turn</div>
+
+        <div class="board" id="board">
+          <button class="cell" data-index="0" aria-label="Cell 1"></button>
+          <button class="cell" data-index="1" aria-label="Cell 2"></button>
+          <button class="cell" data-index="2" aria-label="Cell 3"></button>
+          <button class="cell" data-index="3" aria-label="Cell 4"></button>
+          <button class="cell" data-index="4" aria-label="Cell 5"></button>
+          <button class="cell" data-index="5" aria-label="Cell 6"></button>
+          <button class="cell" data-index="6" aria-label="Cell 7"></button>
+          <button class="cell" data-index="7" aria-label="Cell 8"></button>
+          <button class="cell" data-index="8" aria-label="Cell 9"></button>
+        </div>
+
+        <button class="restart-btn" id="restart-btn">New Game</button>
+      </div>
+    </div>
+
+    <!-- Memory Game -->
+    <div id="memory-game" class="game-view" style="display: none;">
+      <div class="game-wrapper">
+        <h1>Memory Match</h1>
+        <div class="memory-stats">
+          <div class="stat">Moves: <span id="memory-moves">0</span></div>
+          <div class="stat">Matches: <span id="memory-matches">0</span>/8</div>
+        </div>
+        <div class="memory-board" id="memory-board"></div>
+        <button class="restart-btn" id="memory-restart">New Game</button>
+      </div>
+    </div>
+
+    <!-- Snake Game -->
+    <div id="snake-game" class="game-view" style="display: none;">
+      <div class="game-wrapper">
+        <h1>Snake</h1>
+        <div class="snake-stats">
+          <div class="stat">Score: <span id="snake-score">0</span></div>
+          <div class="stat">High Score: <span id="snake-high-score">0</span></div>
+        </div>
+        <canvas id="snake-canvas" width="400" height="400"></canvas>
+        <button class="restart-btn" id="snake-restart">New Game</button>
+      </div>
+    </div>
+
+    <!-- 2048 Game -->
+    <div id="2048-game" class="game-view" style="display: none;">
+      <div class="game-wrapper">
+        <h1>2048</h1>
+        <div class="game2048-stats">
+          <div class="stat-box">
+            <span class="stat-label">Score</span>
+            <span class="stat-value" id="score-2048">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Best</span>
+            <span class="stat-value" id="best-2048">0</span>
+          </div>
+        </div>
+        <div class="board-2048" id="board-2048"></div>
+        <button class="restart-btn" id="restart-2048">New Game</button>
+      </div>
+    </div>
+
+    <!-- Checkers Game -->
+    <div id="checkers-game" class="game-view" style="display: none;">
+      <div class="game-wrapper">
+        <h1>Checkers</h1>
+        <div class="checkers-stats">
+          <div class="stat">Red: <span id="checkers-red">12</span></div>
+          <div class="stat">Black: <span id="checkers-black">12</span></div>
+        </div>
+        <div class="checkers-board" id="checkers-board"></div>
+        <button class="restart-btn" id="checkers-restart">New Game</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="sound.js"></script>
   <script src="game.js"></script>
+  <script src="memory.js"></script>
+  <script src="snake.js"></script>
+  <script src="2048.js"></script>
+  <script src="checkers.js"></script>
 </body>
 </html>
