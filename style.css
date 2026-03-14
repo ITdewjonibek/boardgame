@@ -1,0 +1,202 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #e0e0e0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 24px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #e0e0e0;
+  text-shadow: 0 0 20px rgba(224, 224, 224, 0.3);
+}
+
+/* Scoreboard */
+.scoreboard {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 24px;
+  min-width: 80px;
+  transition: background 0.3s;
+}
+
+.score.active-x {
+  background: rgba(83, 169, 255, 0.15);
+  border-color: rgba(83, 169, 255, 0.4);
+}
+
+.score.active-o {
+  background: rgba(255, 107, 107, 0.15);
+  border-color: rgba(255, 107, 107, 0.4);
+}
+
+.player-label {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.player-label.x {
+  color: #53a9ff;
+}
+
+.player-label.o {
+  color: #ff6b6b;
+}
+
+.score-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* Status */
+.status {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  height: 28px;
+  transition: color 0.3s;
+}
+
+.status.winner-x {
+  color: #53a9ff;
+}
+
+.status.winner-o {
+  color: #ff6b6b;
+}
+
+.status.draw {
+  color: #ffd93d;
+}
+
+/* Board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cell {
+  width: 110px;
+  height: 110px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: inherit;
+  transition: background 0.2s, transform 0.1s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.03);
+}
+
+.cell:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.cell.x {
+  color: #53a9ff;
+  border-color: rgba(83, 169, 255, 0.3);
+}
+
+.cell.o {
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+.cell.winning {
+  background: rgba(255, 215, 61, 0.15);
+  border-color: rgba(255, 215, 61, 0.6);
+  animation: pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { box-shadow: 0 0 8px rgba(255, 215, 61, 0.3); }
+  to   { box-shadow: 0 0 20px rgba(255, 215, 61, 0.7); }
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+/* Restart button */
+.restart-btn {
+  padding: 12px 36px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: transparent;
+  color: #e0e0e0;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+.restart-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.restart-btn:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 420px) {
+  .cell {
+    width: 85px;
+    height: 85px;
+    font-size: 2.2rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}
